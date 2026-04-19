@@ -10,78 +10,165 @@ paperurl: "https://arxiv.org/abs/2604.14808"
 
 **Zeguan Xiao**, Siqing Li, Yong Wang, Xuetao Wei, Jian Yang, Yun Chen, Guanhua Chen
 
-*Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (ACL), 2026*
+*Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (ACL), 2026*
 
 [[arXiv]](https://arxiv.org/abs/2604.14808) [[Code]](https://github.com/sustech-nlp/SAGO)
 
-## TL;DR
+---
 
-We recast LLM unlearning as an **asymmetric two-task problem** — retention is the primary objective, forgetting is auxiliary — and propose **SAGO** (Sign-Align Gradient Optimization), a retention-prioritized gradient synthesis method. On WMDP and RWKU benchmarks, SAGO recovers up to 96% of original model performance while maintaining strong forgetting, showing that *reshaping gradient geometry* beats simple loss re-balancing.
+We're excited to share our latest work **"Modeling LLM Unlearning as an Asymmetric Two-Task Learning Problem"**, accepted at **ACL 2026**! Below we provide an accessible overview of the key ideas, our proposed method **SAGO (Sign-Align Gradient Optimization)**, and the main results.
 
-## Motivation
+---
 
-Machine unlearning for LLMs aims to remove targeted knowledge (e.g., hazardous biosecurity or cybersecurity information) while preserving the model's general capabilities. Existing methods like Gradient Ascent (GA) on the forget set often cause catastrophic performance degradation. Even improved methods (NPO, SimNPO, GradDiff) that combine forget and retain objectives still suffer from **gradient conflicts** — the forget and retain gradients pulling the model in opposing directions.
+## The Problem: LLM Unlearning is Hard
 
-A key observation motivates our work: unlearning is *not* a symmetric multi-task learning problem. We don't seek a balanced compromise between forgetting and retaining. Instead, retention is the **primary** objective (the model should still work well), and forgetting is **auxiliary** (applied under a do-no-harm constraint). This asymmetry makes standard multi-task methods, which aim to equalize task progress, suboptimal or even harmful.
+Large Language Models memorize vast amounts of knowledge from their training data — including private information and potentially hazardous content (e.g., biosecurity, cybersecurity threats). While alignment training can teach models to *refuse* harmful queries, adversaries can easily bypass these safeguards through jailbreak attacks.
+
+**Machine Unlearning** offers a more fundamental solution: directly *removing* dangerous knowledge from the model so that even if jailbroken, the model simply doesn't know the harmful content anymore.
+
+However, unlearning faces a critical challenge: **the forgetting-retention trade-off**. Aggressive unlearning degrades the model's general capabilities, while gentle unlearning fails to fully remove the targeted knowledge.
+
+---
+
+## Our Key Insight: Asymmetric Two-Task Learning
+
+We recast LLM unlearning as an **asymmetric two-task learning** problem:
+
+| | Retention (Primary) | Forgetting (Auxiliary) |
+|---|---|---|
+| **Priority** | ★★★ High | ★ Low |
+| **Goal** | Preserve general capabilities | Remove targeted knowledge |
+| **Constraint** | Must not be degraded | Applied under do-no-harm |
+
+Unlike standard multi-task learning which seeks a balanced compromise between tasks, unlearning has a **fundamental asymmetry**: retention is the primary objective, and forgetting should only happen where it doesn't harm retention.
+
+This insight motivates a shift from *loss balancing* to **retention-prioritized gradient synthesis**.
+
+---
 
 ## Method: Retention-Prioritized Gradient Synthesis
 
-We propose a framework that decouples task-specific gradient extraction from conflict-aware combination:
+Our framework operates through a simple yet effective two-stage iterative process:
 
-1. **Compute task gradients separately**: Extract forget gradient $g_f$ and retain gradient $g_r$ independently.
-2. **Synthesize a conflict-free update**: Combine them using a retention-prioritized strategy.
+1. **Extract** task-specific gradients: compute forget gradient $g_f$ and retain gradient $g_r$ separately
+2. **Synthesize** a conflict-aware update direction using either PCGrad or our novel SAGO
 
-We instantiate this framework with two methods:
+The key design principle: *inject forgetting only where it does not fight retention*.
 
-### PCGrad (Adapted)
+### PCGrad Adaptation (Module-wise)
 
-We adapt Project Conflicting Gradients to the unlearning setting with a **module-wise** variant. When the forget gradient conflicts with the retain gradient in a specific module, we project the forget gradient onto the orthogonal complement of the retain gradient — removing only the harmful component while preserving beneficial forgetting directions.
+We adapt PCGrad to the unlearning setting by projecting the forget gradient onto the orthogonal complement of the retain gradient — but we do this **per-module** rather than globally:
 
-### SAGO (Our Proposed Method)
+$$\tilde{g}_f^j = g_f^j - \frac{g_f^j \cdot g_r^j}{\|g_r^j\|^2} g_r^j$$
 
-SAGO performs **element-wise sign-aligned gating**:
-- For parameters where forget and retain gradients have **the same sign** (no conflict): allow the forget gradient through.
-- For parameters where they have **opposite signs** (conflict): use the retain gradient instead.
+This localized projection prevents conflicts in one module from triggering unnecessary correction elsewhere.
 
-$$\tilde{g}_f = g_f \odot \mathbb{I}(g_f \odot g_r \geq 0), \quad \tilde{g}_r = g_r \odot \mathbb{I}(g_f \odot g_r < 0)$$
+### SAGO: Sign-Align Gradient Optimization
+
+SAGO takes a finer-grained approach through **element-wise sign alignment**:
+
+- **Conflicting dimensions** (where $g_f$ and $g_r$ have opposite signs): Use only the retain gradient — these dimensions carry general knowledge
+- **Aligned dimensions** (where $g_f$ and $g_r$ have the same sign): Allow the forget gradient through — these are task-specific and conflict-free
+
+Formally:
+
+$$\tilde{g}_f = g_f \odot \mathbb{I}(g_f \odot g_r \geq 0)$$
+
+$$\tilde{g}_r = g_r \odot \mathbb{I}(g_f \odot g_r < 0)$$
 
 $$g_{\text{final}} = \alpha \tilde{g}_r + \gamma \tilde{g}_f$$
 
-This guarantees that **no coordinate in the final update ever opposes the retain gradient**, achieving strictly tighter alignment with retention than PCGrad.
+This guarantees that **no coordinate in the final update ever points against the retain signal**.
 
-## Theoretical Guarantees
+<figure>
+<img src="/images/sago/fig2_gradient_illustration.png" alt="Illustration of PCGrad vs SAGO gradient synthesis" style="width:100%">
+<figcaption><strong>Figure 2:</strong> Illustration of final update gradients (red) in PCGrad (a) and SAGO (b). PCGrad projects the forget gradient orthogonally onto the retain gradient. SAGO selectively uses retain gradients in conflicting dimensions and forget gradients in aligned dimensions, achieving higher alignment with the retain direction.</figcaption>
+</figure>
 
-Both PCGrad and SAGO ensure non-negative cosine similarity with the retain gradient $g_r$:
-- **PCGrad**: $\cos\theta_P = (1 + \|\tilde{g}_f\|^2 / \|g_r\|^2)^{-1/2} \geq 0$
-- **SAGO**: Achieves strictly positive cosine similarity through element-wise sign constraints, with no dimension ever opposing retention.
+---
 
-SAGO's advantage comes from two mechanisms: (1) the gated gradients are orthogonal by construction ($\tilde{g}_f^\top \tilde{g}_r = 0$), eliminating direct conflicts; and (2) every coordinate of the final update is sign-aligned with $g_r$.
+## Why SAGO Works Better: Theoretical Guarantees
 
-## Key Results
+Both PCGrad and SAGO guarantee **non-negative cosine similarity** with the retain gradient, ensuring the update never moves against retention. But SAGO achieves **strictly tighter alignment**:
+
+- **PCGrad**: The projected forget gradient $\tilde{g}_f$ can still dominate in certain dimensions (when $|\tilde{g}_f^i| > |g_r^i|$), causing the final update to oppose retention locally.
+- **SAGO**: Guarantees $g_{\text{final}}^i \cdot g_r^i \geq 0$ for **every** dimension — complete elimination of antagonistic updates.
+
+---
+
+## Results: Pushing the Pareto Frontier
 
 ### WMDP Benchmark (Biosecurity & Cybersecurity)
 
-| Method (Bio) | Forget ↓ | MMLU ↑ | Recovery % |
-|---|---|---|---|
-| SimNPO+GD (naive) | 26.7 | 26.7 | 44.6% |
-| + PCGrad | 27.6 | 56.4 | 94.0% |
-| + SAGO | **28.2** | **57.4** | **96.0%** |
+<figure>
+<img src="/images/sago/fig3_wmdp_pareto.png" alt="Pareto frontier on WMDP benchmark" style="width:100%">
+<figcaption><strong>Figure 3:</strong> Performance trade-offs on WMDP Bio (left) and Cyber (right). Stars (★) represent SAGO variants, which consistently push the Pareto frontier upward — better retention at comparable forgetting strength.</figcaption>
+</figure>
 
-SAGO consistently pushes the Pareto frontier outward: at comparable forgetting levels, it achieves substantially higher retention across all base objectives (GA+GD, NPO+GD, SimNPO+GD).
+Key results on **WMDP Bio** (SimNPO+GD):
+
+| Method | MMLU (↑) | Forget Acc (↓) | % Target Recovery |
+|--------|----------|----------------|-------------------|
+| Naive | 26.7 | 26.1 | 44.6% |
+| + PCGrad | 56.4 | 28.9 | 94.0% |
+| + **SAGO** | **57.4** | **28.2** | **96.0%** |
+
+SAGO recovers **96% of the original model's MMLU performance** while maintaining comparable forgetting strength!
 
 ### RWKU Benchmark (Real-World Knowledge Unlearning)
 
-On RWKU with LLaMA3-8B-Instruct, SAGO improves neighbor retention by up to +13.3 ROUGE-L points over PCGrad while maintaining effective forgetting, strictly dominating prior methods on the retention-forgetting frontier.
+<figure>
+<img src="/images/sago/fig4_rwku_pareto.png" alt="Pareto frontier on RWKU benchmark" style="width:100%">
+<figcaption><strong>Figure 4:</strong> Trade-offs on RWKU. SAGO produces a better Pareto frontier than both baselines and PCGrad, achieving superior retention with effective forgetting.</figcaption>
+</figure>
 
-### Gradient Geometry Analysis
+On RWKU, SAGO improves neighbor retention by up to **+13.3 ROUGE-L** over PCGrad (GA+GD setting), demonstrating particularly strong gains in preserving knowledge about related but non-targeted entities.
 
-Tracking cosine similarities over 100 training steps reveals:
-- SAGO achieves the **highest Comb-Retain similarity** (strongest alignment with retention)
-- SAGO reduces the natural Forget-Retain conflict (negative cosine similarity is weakest)
-- GradDiff achieves high Comb-Forget but at the cost of degraded retention
+### Loss Dynamics Visualization
 
-## Key Takeaway
+<figure>
+<img src="/images/sago/fig1_loss_dynamics.png" alt="Loss dynamics during unlearning" style="width:100%">
+<figcaption><strong>Figure 1:</strong> Loss dynamics on WMDP Biosecurity. Panels (a) and (b) show that SAGO maintains low retain loss while achieving high forget loss. Panel (c) illustrates how PCGrad and SAGO dynamically refine gradients compared to naive GradDiff.</figcaption>
+</figure>
 
-> The key to effective LLM unlearning is **reshaping gradient geometry** — how loss gradients are combined and resolved — rather than merely re-balancing losses between forgetting and retention tasks.
+---
 
-Our framework is **plug-and-play**: it integrates seamlessly with diverse unlearning objectives (GA+GD, NPO+GD, SimNPO+GD) and is readily extensible to future methods. The code is available at [https://github.com/sustech-nlp/SAGO](https://github.com/sustech-nlp/SAGO).
+## Gradient Geometry Analysis
+
+To understand *why* SAGO works so well, we analyzed the cosine similarity between different gradient components:
+
+| Method | Forget-Retain | Comb-Retain | Comb-Forget |
+|--------|--------------|-------------|-------------|
+| GradDiff | −0.22 | 0.55 | 0.82 |
+| PCGrad | −0.22 | 0.76 | 0.52 |
+| **SAGO** | **−0.15** | **0.87** | 0.48 |
+
+Key takeaways:
+- SAGO achieves the **highest alignment with the retain gradient** (Comb-Retain = 0.87)
+- SAGO also **reduces the raw conflict** between forget and retain gradients (Forget-Retain = −0.15 vs −0.22)
+- The controlled, moderate Comb-Forget value ensures forgetting still happens — just without harming retention
+
+---
+
+## Takeaway: Reshape Gradient Geometry, Don't Just Re-balance Losses
+
+Our results demonstrate a fundamental insight: **re-shaping gradient geometry** is the key to mitigating unlearning-retention trade-offs, rather than simply re-balancing loss weights.
+
+SAGO provides a simple, modular, and theoretically grounded solution that:
+- ✅ Plugs into any existing forget+retain objective (GA+GD, NPO+GD, SimNPO+GD)
+- ✅ Guarantees retention-aligned updates at every parameter
+- ✅ Consistently pushes the Pareto frontier across benchmarks
+- ✅ Requires no additional hyperparameter tuning beyond the base method
+
+---
+
+## Citation
+
+```bibtex
+@inproceedings{xiao2026sago,
+  title={Modeling LLM Unlearning as an Asymmetric Two-Task Learning Problem},
+  author={Xiao, Zeguan and Li, Siqing and Wang, Yong and Wei, Xuetao and Yang, Jian and Chen, Yun and Chen, Guanhua},
+  booktitle={Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (ACL)},
+  year={2026}
+}
+```
