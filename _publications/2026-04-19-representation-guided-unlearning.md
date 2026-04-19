@@ -5,7 +5,7 @@ category: conferences
 permalink: /publication/2026-04-19-representation-guided-unlearning
 date: 2026-04-19
 venue: "Findings of ACL 2026"
-paperurl: "https://github.com/Jacksooooff/reglu-open"
+paperurl: ""
 ---
 
 **Zeguan Xiao**, Lang Mo, Yun Chen, Lei Yang, Jiehui Zhao, Lili Yang, Guanhua Chen
