@@ -6,8 +6,6 @@ permalink: /publication/2026-03-14-uncertainty-estimation
 date: 2026-03-14
 venue: "AAAI 2026"
 paperurl: "https://ojs.aaai.org/index.php/AAAI/article/view/40698"
-citation: |
-  **Zeguan Xiao**, Diyang Dou, Boya Xiong, Yun Chen, Guanhua Chen. Enhancing Uncertainty Estimation in LLMs with Expectation of Aggregated Internal Belief. In *Proceedings of the 40th AAAI Conference on Artificial Intelligence (AAAI)*, 2026.
 ---
 
 **Zeguan Xiao**, Diyang Dou, Boya Xiong, Yun Chen, Guanhua Chen
