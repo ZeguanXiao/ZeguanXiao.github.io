@@ -1,0 +1,17 @@
+---
+title: "Representation-Guided Parameter-Efficient LLM Unlearning"
+collection: publications
+category: conferences
+permalink: /publication/2026-04-19-representation-guided-unlearning
+date: 2026-04-19
+venue: "ACL Findings 2026"
+paperurl: "https://github.com/Jacksooooff/reglu-open"
+citation: |
+  **Zeguan Xiao**\*, Lang Mo\*, Yun Chen, Lei Yang, Jiehui Zhao, Lili Yang†, Guanhua Chen†. Representation-Guided Parameter-Efficient LLM Unlearning. In *Findings of the Association for Computational Linguistics: ACL 2026*, 2026. (\*Equal contribution, †Equal advising)
+---
+
+**Zeguan Xiao**\*, Lang Mo\*, Yun Chen, Lei Yang, Jiehui Zhao, Lili Yang†, Guanhua Chen† (\*Equal contribution, †Equal advising)
+
+*Findings of the Association for Computational Linguistics: ACL 2026, 2026*
+
+[[GitHub]](https://github.com/Jacksooooff/reglu-open)
