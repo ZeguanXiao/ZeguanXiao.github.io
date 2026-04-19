@@ -1,17 +1,17 @@
 ---
-title: "Pruning-then-Expanding Model for Domain Adaptation of Neural Machine Translation"
+title: "Pruning Adatperfusion with Lottery Ticket Hypothesis"
 collection: publications
 category: conferences
 permalink: /publication/2022-07-10-pruning-adaptperfusion
 date: 2022-07-10
 venue: "NAACL Findings 2022"
-paperurl: "https://aclanthology.org/2022.findings-naacl.110"
+paperurl: "https://aclanthology.org/2022.findings-naacl.123"
 citation: |
-  Shuhao Gu, Yang Feng, **Zeguan Xiao**. Pruning-then-Expanding Model for Domain Adaptation of Neural Machine Translation. In *Findings of the Association for Computational Linguistics: NAACL 2022*, 2022.
+  Jiarun Wu, Qingliang Chen, **Zeguan Xiao**, Yuliang Gu, Mengsi Sun. Pruning Adatperfusion with Lottery Ticket Hypothesis. In *Findings of the Association for Computational Linguistics: NAACL 2022*, 2022.
 ---
 
-Shuhao Gu, Yang Feng, **Zeguan Xiao**
+Jiarun Wu, Qingliang Chen, **Zeguan Xiao**, Yuliang Gu, Mengsi Sun
 
 *Findings of the Association for Computational Linguistics: NAACL 2022, 2022*
 
-[[PDF]](https://aclanthology.org/2022.findings-naacl.110)
+[[PDF]](https://aclanthology.org/2022.findings-naacl.123)
