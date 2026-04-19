@@ -4,7 +4,7 @@ collection: publications
 category: conferences
 permalink: /publication/2022-07-10-pruning-adaptperfusion
 date: 2022-07-10
-venue: "NAACL Findings 2022"
+venue: "Findings of NAACL 2022"
 paperurl: "https://aclanthology.org/2022.findings-naacl.123"
 citation: |
   Jiarun Wu, Qingliang Chen, **Zeguan Xiao**, Yuliang Gu, Mengsi Sun. Pruning Adatperfusion with Lottery Ticket Hypothesis. In *Findings of the Association for Computational Linguistics: NAACL 2022*, 2022.
