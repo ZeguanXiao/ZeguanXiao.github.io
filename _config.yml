@@ -28,7 +28,7 @@ author:
   pronouns         : # example: "she/her"  
   bio              : "Final-year PhD candidate @ SUFE SCAI. LLM Safety, Alignment, Robustness & Unlearning."
   location         : "Shanghai, China"
-  employer         : "Shanghai University of Finance and Economics"
+  employer         : # URL
   uri              : # URL
   email            : "hainanxzg@gmail.com" 
 
