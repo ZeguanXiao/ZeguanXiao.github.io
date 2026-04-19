@@ -11,54 +11,36 @@ redirect_from:
 
 Education
 ======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+* Ph.D. in Management Science and Engineering, Shanghai University of Finance and Economics (SUFE), Sept 2022 – Jul 2026 (expected)
+  * School of Computing and Artificial Intelligence (SCAI)
+  * Advisor: Prof. Yun Chen
+* Visiting Student, Southern University of Science and Technology (SUSTech), Apr 2023 – Apr 2026
+  * Advisor: Prof. Guanhua Chen
+* M.S. in Computer Software and Theory, Jinan University, Sept 2018 – Jul 2021
+* B.S. in Economic Statistics, Dongbei University of Finance and Economics, Sept 2014 – Jul 2018
 
-Work experience
+Research Interests
 ======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
-
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
-
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
-  
-Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+* LLM Safety & Red-teaming: automated adversarial attack generation, jailbreak detection and defense
+* LLM Alignment: scalable oversight, reward modeling, preference learning
+* LLM Robustness: out-of-distribution generalization, calibration
+* LLM Unlearning: capability-preserving unlearning, robust unlearning against relearning attacks
 
 Publications
 ======
   <ul>{% for post in site.publications reversed %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
-  
+
 Talks
 ======
   <ul>{% for post in site.talks reversed %}
     {% include archive-single-talk-cv.html  %}
   {% endfor %}</ul>
-  
+
 Teaching
 ======
   <ul>{% for post in site.teaching reversed %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
+
