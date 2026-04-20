@@ -4,7 +4,7 @@ collection: publications
 category: conferences
 permalink: /publication/2026-06-14-reward-generation-gap
 date: 2026-06-14
-venue: "Findings of ACL 2026"
+venue: "In Findings of ACL 2026"
 paperurl: "https://arxiv.org/abs/2506.09457"
 excerpt: "**Zeguan Xiao**, Yun Chen, Jian Yang, Guanhua Chen, Ke Tang"
 project_page: true

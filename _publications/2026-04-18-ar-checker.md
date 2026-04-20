@@ -4,7 +4,7 @@ collection: publications
 category: conferences
 permalink: /publication/2026-04-18-ar-checker
 date: 2026-04-18
-venue: "Findings of ACL 2026"
+venue: "In Findings of ACL 2026"
 paperurl: "https://arxiv.org/abs/2506.05038"
 ---
 

@@ -4,7 +4,7 @@ collection: publications
 category: conferences
 permalink: /publication/2026-04-28-asymmetric-unlearning
 date: 2026-04-28
-venue: "ACL 2026"
+venue: "In Proceedings of ACL 2026 (CCF-A, main conference)"
 paperurl: "https://arxiv.org/abs/2604.14808"
 excerpt: "**Zeguan Xiao**, Siqing Li, Yong Wang, Xuetao Wei, Jian Yang, Yun Chen, Guanhua Chen"
 project_page: true
