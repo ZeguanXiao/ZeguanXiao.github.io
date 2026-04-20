@@ -22,54 +22,43 @@ My research focuses on the **safety, alignment, and robustness of large language
 {% assign one_year_seconds = 31536000 %}
 
 {% if sorted_news and sorted_news.size > 0 %}
-  {% assign has_recent_news = false %}
-  {% for item in sorted_news %}
-    {% assign item_timestamp = item.date | date: "%s" | plus: 0 %}
-    {% assign item_age = current_timestamp | minus: item_timestamp %}
-    {% if item_age <= one_year_seconds %}
-      {% assign has_recent_news = true %}
-    {% endif %}
-  {% endfor %}
-
-  {% if has_recent_news %}
-    <ul>
-      {% for item in sorted_news %}
-        {% assign item_timestamp = item.date | date: "%s" | plus: 0 %}
-        {% assign item_age = current_timestamp | minus: item_timestamp %}
-        {% if item_age <= one_year_seconds %}
-          <li>
-            <strong>{{ item.date | date: "%B %-d, %Y" }}</strong>: {{ item.content | markdownify | remove: "<p>" | remove: "</p>" }}
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  {% endif %}
-
-  {% assign has_older_news = false %}
-  {% for item in sorted_news %}
-    {% assign item_timestamp = item.date | date: "%s" | plus: 0 %}
-    {% assign item_age = current_timestamp | minus: item_timestamp %}
-    {% if item_age > one_year_seconds %}
-      {% assign has_older_news = true %}
-    {% endif %}
-  {% endfor %}
-
-  {% if has_older_news %}
-    <details>
-      <summary>Older news</summary>
-      <ul>
-        {% for item in sorted_news %}
-          {% assign item_timestamp = item.date | date: "%s" | plus: 0 %}
-          {% assign item_age = current_timestamp | minus: item_timestamp %}
-          {% if item_age > one_year_seconds %}
-            <li>
-              <strong>{{ item.date | date: "%B %-d, %Y" }}</strong>: {{ item.content | markdownify | remove: "<p>" | remove: "</p>" }}
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </details>
-  {% endif %}
+{% assign has_recent_news = false %}
+{% for item in sorted_news %}
+{% assign item_timestamp = item.date | date: "%s" | plus: 0 %}
+{% assign item_age = current_timestamp | minus: item_timestamp %}
+{% if item_age <= one_year_seconds %}{% assign has_recent_news = true %}{% endif %}
+{% endfor %}
+{% if has_recent_news %}
+<ul>
+{% for item in sorted_news %}
+{% assign item_timestamp = item.date | date: "%s" | plus: 0 %}
+{% assign item_age = current_timestamp | minus: item_timestamp %}
+{% if item_age <= one_year_seconds %}
+<li><strong>{{ item.date | date: "%B %-d, %Y" }}</strong>: {{ item.content | markdownify | remove: "<p>" | remove: "</p>" }}</li>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+{% assign has_older_news = false %}
+{% for item in sorted_news %}
+{% assign item_timestamp = item.date | date: "%s" | plus: 0 %}
+{% assign item_age = current_timestamp | minus: item_timestamp %}
+{% if item_age > one_year_seconds %}{% assign has_older_news = true %}{% endif %}
+{% endfor %}
+{% if has_older_news %}
+<details>
+<summary>Older news</summary>
+<ul>
+{% for item in sorted_news %}
+{% assign item_timestamp = item.date | date: "%s" | plus: 0 %}
+{% assign item_age = current_timestamp | minus: item_timestamp %}
+{% if item_age > one_year_seconds %}
+<li><strong>{{ item.date | date: "%B %-d, %Y" }}</strong>: {{ item.content | markdownify | remove: "<p>" | remove: "</p>" }}</li>
+{% endif %}
+{% endfor %}
+</ul>
+</details>
+{% endif %}
 {% endif %}
 
 ---
