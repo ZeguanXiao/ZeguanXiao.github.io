@@ -10,6 +10,4 @@ paperurl: "https://arxiv.org/abs/2506.05038"
 
 Yutao Hou, **Zeguan Xiao**, Fei Yu, Yihan Jiang, Xuetao Wei, Hailiang Huang, Yun Chen, Guanhua Chen
 
-*Findings of the Association for Computational Linguistics: ACL 2026, 2026*
-
 [[arXiv]](https://arxiv.org/abs/2506.05038)

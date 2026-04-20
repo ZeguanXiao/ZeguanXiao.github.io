@@ -10,6 +10,4 @@ paperurl: "https://aclanthology.org/2024.emnlp-main.908"
 
 **Zeguan Xiao**, Yan Yang, Guanhua Chen, Yun Chen
 
-*Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing (EMNLP), 2024*
-
 [[PDF]](https://aclanthology.org/2024.emnlp-main.908)
