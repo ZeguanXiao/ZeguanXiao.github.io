@@ -11,7 +11,7 @@ redirect_from:
 
 Education
 ======
-* Ph.D. in Management Science and Engineering, Shanghai University of Finance and Economics (SUFE), Sept 2022 – Jul 2026 (expected)
+* Ph.D. in Management Science and Engineering, Shanghai University of Finance and Economics (SUFE), Sept 2022 – Jul 2026
   * School of Computing and Artificial Intelligence (SCAI)
   * Advisor: Prof. Yun Chen
 * Visiting Student, Southern University of Science and Technology (SUSTech), Apr 2023 – Apr 2026
