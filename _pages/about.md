@@ -10,13 +10,9 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I received my Ph.D. in Management Science and Engineering from the [School of Computing and Artificial Intelligence (SCAI)](https://scai.sufe.edu.cn/), [Shanghai University of Finance and Economics (SUFE)](https://www.sufe.edu.cn/), in 2026, advised by Prof. [Yun Chen](https://yunc.me/). During my Ph.D., I was also a visiting student at [Southern University of Science and Technology (SUSTech)](https://www.sustech.edu.cn/), working with Prof. [Guanhua Chen](https://ghchen.me/). I received my M.S. in Computer Software and Theory from Jinan University, and my B.S. in Economic Statistics from Dongbei University of Finance and Economics.
-
-My research focuses on the **safety, alignment, robustness, and unlearning of large language models (LLMs)**.
+I received my Ph.D. in Management Science and Engineering from the [School of Computing and Artificial Intelligence (SCAI)](https://scai.sufe.edu.cn/), [Shanghai University of Finance and Economics (SUFE)](https://www.sufe.edu.cn/), in 2026, advised by Prof. [Yun Chen](https://yunc.me/). During my Ph.D., I was also a visiting student at [Southern University of Science and Technology (SUSTech)](https://www.sustech.edu.cn/), working with Prof. [Guanhua Chen](https://ghchen.me/).
 
 **I am actively looking for full-time research positions (industry or academia).** Feel free to reach out via [email](mailto:hainanxzg@gmail.com).
-
-[Google Scholar](https://scholar.google.com/citations?user=rgQWhpUAAAAJ)
 
 
 <h1 id="news">🔥 News</h1>
