@@ -39,6 +39,5 @@ I received my Ph.D. in Management Science and Engineering from the [School of Co
 
 <h1 id="educations">📖 Educations</h1>
 - *2022.09 - 2026.07*, Ph.D. in Management Science and Engineering, [Shanghai University of Finance and Economics (SUFE)](https://www.sufe.edu.cn/), advised by Prof. [Yun Chen](https://yunc.me/).
-- *2023.04 - 2026.04*, Visiting Student, [Southern University of Science and Technology (SUSTech)](https://www.sustech.edu.cn/), working with Prof. [Guanhua Chen](https://ghchen.me/).
 - *2018.09 - 2021.07*, M.S. in Computer Software and Theory, Jinan University.
 - *2014.09 - 2018.07*, B.S. in Economic Statistics, Dongbei University of Finance and Economics.
