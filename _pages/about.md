@@ -19,11 +19,11 @@ My research focuses on the **safety, alignment, robustness, and unlearning of la
 [Google Scholar](https://scholar.google.com/citations?user=rgQWhpUAAAAJ)
 
 
-# 🔥 News
+<h1 id="news">🔥 News</h1>
 - *2026.04*: &nbsp;🎉 One paper was accepted to the ACL 2026 main conference, and three papers were accepted to Findings of ACL 2026.
 
 
-# 📝 Publications
+<h1 id="publications">📝 Publications</h1>
 
 - [Modeling LLM Unlearning as an Asymmetric Two-Task Learning Problem](https://arxiv.org/abs/2604.14808), **Zeguan Xiao**, Siqing Li, Yong Wang, Xuetao Wei, Jian Yang, Yun Chen, Guanhua Chen, **ACL 2026**
 - [Towards Bridging the Reward-Generation Gap in Direct Alignment Algorithms](https://arxiv.org/abs/2506.09457), **Zeguan Xiao**, Yun Chen, Jian Yang, Guanhua Chen, Ke Tang, **Findings of ACL 2026**
@@ -36,12 +36,12 @@ My research focuses on the **safety, alignment, robustness, and unlearning of la
 - [BERT4GCN: Using BERT Intermediate Layers to Augment GCN for Aspect-based Sentiment Classification](https://aclanthology.org/2021.emnlp-main.724), **Zeguan Xiao**, Jiarun Wu, Qingliang Chen, Congjian Deng, **EMNLP 2021**
 
 
-# 🎖 Honors and Awards
+<h1 id="honors">🎖 Honors and Awards</h1>
 - Outstanding Graduate, Shanghai University of Finance and Economics
 - First-Class Doctoral Academic Scholarship, Shanghai University of Finance and Economics
 
 
-# 📖 Educations
+<h1 id="educations">📖 Educations</h1>
 - *2022.09 - 2026.07*, Ph.D. in Management Science and Engineering, [Shanghai University of Finance and Economics (SUFE)](https://www.sufe.edu.cn/), advised by Prof. [Yun Chen](https://yunc.me/).
 - *2023.04 - 2026.04*, Visiting Student, [Southern University of Science and Technology (SUSTech)](https://www.sustech.edu.cn/), working with Prof. [Guanhua Chen](https://ghchen.me/).
 - *2018.09 - 2021.07*, M.S. in Computer Software and Theory, Jinan University.
